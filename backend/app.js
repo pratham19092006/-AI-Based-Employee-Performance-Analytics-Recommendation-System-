@@ -13,7 +13,12 @@ const app = express();
 app.use(helmet());
 
 // CORS Configuration
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 // Body parser
 app.use(express.json());
