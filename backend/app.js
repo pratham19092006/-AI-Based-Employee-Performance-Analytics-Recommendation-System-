@@ -13,9 +13,13 @@ const app = express();
 app.use(helmet());
 
 // CORS Configuration
+const allowedOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(',').map((origin) => origin.trim()).filter(Boolean)
+  : [];
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || '*',
-  credentials: true,
+  origin: allowedOrigins.length ? allowedOrigins : true,
+  credentials: false,
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
